@@ -19,17 +19,10 @@ jobs:
       - name: Run client test suite
         run: docker run -e CI=true abdekwant/client-test npm test
 
-      - name: Build client image
-        run: docker build -t abdekwant/multi-client ./client
-        
-      - name: Build nginx image
-        run: docker build -t abdekwant/multi-nginx ./nginx
-
-      - name: Build server image
-        run: docker build -t abdekwant/multi-server ./server
-
-      - name: Build worker image
-        run: docker build -t abdekwant/multi-worker ./worker
+      - run: docker build -t abdekwant/multi-client ./client
+      - run: docker build -t abdekwant/multi-nginx ./nginx
+      - run: docker build -t abdekwant/multi-server ./server
+      - run: docker build -t abdekwant/multi-worker ./worker
 
       - run: docker push abdekwant/multi-client
       - run: docker push abdekwant/multi-nginx
