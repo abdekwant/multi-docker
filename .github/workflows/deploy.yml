@@ -14,17 +14,17 @@ jobs:
       - run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build client test suite
-        run: docker build -t abdekwant/client-test -f ./client/Dockerfile.dev ./client
+        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/client-test -f ./client/Dockerfile.dev ./client
         
       - name: Run client test suite
-        run: docker run -e CI=true abdekwant/client-test npm test
+        run: docker run -e CI=true ${{ secrets.DOCKER_USERNAME }}/client-test npm test
 
-      - run: docker build -t abdekwant/multi-client ./client
-      - run: docker build -t abdekwant/multi-nginx ./nginx
-      - run: docker build -t abdekwant/multi-server ./server
-      - run: docker build -t abdekwant/multi-worker ./worker
+      - run: docker build -t ${{ secrets.DOCKER_USERNAME }}/multi-client ./client
+      - run: docker build -t ${{ secrets.DOCKER_USERNAME }}/multi-nginx ./nginx
+      - run: docker build -t ${{ secrets.DOCKER_USERNAME }}/multi-server ./server
+      - run: docker build -t ${{ secrets.DOCKER_USERNAME }}/multi-worker ./worker
 
-      - run: docker push abdekwant/multi-client
-      - run: docker push abdekwant/multi-nginx
-      - run: docker push abdekwant/multi-server
-      - run: docker push abdekwant/multi-worker
+      - run: docker push ${{ secrets.DOCKER_USERNAME }}/multi-client
+      - run: docker push ${{ secrets.DOCKER_USERNAME }}/multi-nginx
+      - run: docker push ${{ secrets.DOCKER_USERNAME }}/multi-server
+      - run: docker push ${{ secrets.DOCKER_USERNAME }}/multi-worker
