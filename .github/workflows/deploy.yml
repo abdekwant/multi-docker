@@ -31,7 +31,7 @@ jobs:
       - name: Build worker image
         run: docker build -t abdekwant/multi-worker ./worker
 
-      - run: docker push abdekwant/muti-client
-      - run: docker push abdekwant/muti-nginx
-      - run: docker push abdekwant/muti-server
-      - run: docker push abdekwant/muti-worker
+      - run: docker push abdekwant/multi-client
+      - run: docker push abdekwant/multi-nginx
+      - run: docker push abdekwant/multi-server
+      - run: docker push abdekwant/multi-worker
