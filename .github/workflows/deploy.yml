@@ -30,7 +30,7 @@ jobs:
       - run: docker push ${{ secrets.DOCKER_USERNAME }}/multi-worker
 
       - name: Create deployment ZIP package
-        run: zip -r deploy.zip . -x '*.git*' 
+        run: zip -r deploy.zip docker-compose.yml -x '*.git*' 
 
       - name: Deploy ZIP package on Amazon Elastic Beanstalk
         uses: einaregilsson/beanstalk-deploy@v20
