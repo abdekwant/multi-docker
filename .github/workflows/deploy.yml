@@ -28,3 +28,18 @@ jobs:
       - run: docker push ${{ secrets.DOCKER_USERNAME }}/multi-nginx
       - run: docker push ${{ secrets.DOCKER_USERNAME }}/multi-server
       - run: docker push ${{ secrets.DOCKER_USERNAME }}/multi-worker
+
+      - name: Create deployment ZIP package
+        run: zip -r deploy.zip . -x '*.git*' 
+
+      - name: Deploy ZIP package on Amazon Elastic Beanstalk
+        uses: einaregilsson/beanstalk-deploy@v20
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
+          application_name: multi-docker
+          environment_name: Multidocker-env
+          existing_bucket_name: elasticbeanstalk-eu-central-1-913327590138
+          region: eu-central-1
+          version_label: ${{ github.sha }}
+          deployment_package: deploy.zip
